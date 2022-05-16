@@ -1,0 +1,194 @@
+extends layout
+
+block content
+  .timeline
+    if user
+      .chat-bar
+        button#chat-button.collapsible(type='button') 가톨릭관동대학교
+          i#chat-icon.fa.fa-fw.fa-comments-o(style='color: #fff;')
+        .content
+          .full-chat-block
+            .outer-container
+              .chat-container
+                #chatbox
+                  h5#chat-timestamp
+                  p#botStarterMessage.botText
+                    span Loading...
+                .chat-bar-input-block
+                  #userInput
+                    input#textInput.input-box(type='text' name='msg' placeholder='메시지를 입력하세요')
+                    p
+                  .chat-bar-icons
+                    i#chat-icon.fa.fa-camera-retro(style='color: #333;' onclick='imsiButton()')
+                    i#chat-icon.fa.fa-fw.fa-send(style='color: #333;' onclick='sendButton()')
+                #chat-bar-bottom
+                  p
+      script(src='js/Chat.js')
+      script.
+        var name = `#{user.nick}`;
+        function firstBotMessage() {
+          let firstMessage = `${name}님 안녕하세요!`
+          document.getElementById("botStarterMessage").innerHTML = "<p class='botText'><span>" + firstMessage + '</span></p>';
+          document.getElementById("userInput").scrollIntoView(false);
+        }
+        firstBotMessage();
+        function getBotResponse(input) {
+          var dname = `#{user.dnick}`;
+          var depa = #{user.dcategory};
+          var year = #{user.uyear};
+          var grade = #{user.grade};
+          //var snum = #{user.email};
+          var kp = #{user.ascore};
+          var ks = #{user.bscore};
+          var jg = #{user.cscore};
+          var ib = #{user.dscore};
+          var tt = #{user.escore};
+          
+          var date = new Date();
+          var month = date.getMonth()+1; //현재달 조회, 학사일정에 사용
+
+          if  (input == "!명령어") {
+            return "졸업학점, 학과연락처, 교육과정, !학사일정";
+          }	
+          else if (input == "학사일정") {
+            switch(month) {
+              case 1 : return `${month}월 학사일정입니다.<br>`;
+                break;
+              case 2 : return `${month}월 학사일정입니다.<br>`;
+                break;
+              case 3 : return `${month}월 학사일정입니다.<br>`;
+                break;
+              case 4 : return `${month}월 학사일정입니다.<br>`;
+                break;
+              case 5 : return `${month}월 학사일정입니다.<br>05일 : 어린이날 [공휴일]<br>09일-13일 : 중간 성적 열람<br>30일-6월 3일 : 복수,부전공 신청`;
+                break;
+              case 6 : return `${month}월 학사일정입니다.<br>01일 : 지방선거 [공휴일]<br>06일 : 현충일 [공휴일]<br>08일-20일 : 보강 및 기말 고사<br>08일-24일 : 기말 성적 입력<br>20일 : 1학기 종강<br>27일-29일 : 하계 계절학기 성적 포기<br>27일 : 하계 계절학기 개강<br>27일-7월 1일 : 성적열람 및 이의신청`;
+                break;
+              case 7 : return `${month}월 학사일정입니다.<br>`;
+                break;
+              case 8 : return `${month}월 학사일정입니다.<br>`;
+                break;
+              case 9 : return `${month}월 학사일정입니다.<br>`;
+                break;
+              case 10 : return `${month}월 학사일정입니다.<br>`;
+                break;
+              case 11 : return `${month}월 학사일정입니다.<br>`;
+                break;
+              case 12 : return `${month}월 학사일정입니다.<br>`;
+                break;
+              default: window.open("https://www.cku.ac.kr/cku/428/subview.do","학사일정"); return ``;
+            }
+          }
+          else if (input == "학과연락처") {
+            switch(dname) {
+              case `소프트웨어` : return `학과 사무실: 033-649-7430<br>조병호 교수님: 033-649-7567<br>안희학 교수님: 033-649-7572<br>심손권 교수님: 033-649-7208<br>정이나 교수님: 033-649-7430<br>장원중 교수님: 033-649-7265<br>이병관 교수님: 033-649-7573`;
+                break;
+              case `건축` : return `학과 사무실: 033-649-7525<br>조원석 교수님: 033-649-7546<br>고상균 교수님: 033-649-7547<br>심대영 교수님: 033-649-7518<br>문정인 교수님: 033-649-7673<br>백승한 교수님: 033-649-7695<br>이형재 교수님: 033-649-7527<br>김주민 교수님: 033-649-7598`;
+                break;
+              case `전자공` : return `학과 사무실: 033-649-7506<br>이금원 교수님: 033-649-7556<br>김종일 교수님: 033-649-7557<br>유용경 교수님: 033-649-7379<br>송호승 교수님: 033-649-7553`;
+                break;
+              case `토목` : return `학과 사무실: 033-649-7525<br>김규한 교수님: 033-649-7511<br>유승운 교수님: 033-649-7513<br>박창근 교수님: 033-649-7514<br>백규호 교수님: 033-649-7515`;
+                break;
+              case `건축공` : return `학과 사무실: 033-649-7525<br>김병윤 교수님: 033-649-7528<br>이웅균 교수님: 033-649-7548<br>신진원 교수님: 033-649-7694<br>신범식 교수님: 033-649-7254`;
+                break;
+              default: return `자세한 정보는<br>www.cku.ac.kr/cku/478/subview.do 를 확인해주세요`;
+            }
+          }
+          else if (input == "test") {
+            window.open("https://www.cku.ac.kr","cku");
+            return `이동완료`;
+            //return `${name},${year},${kp},${ks},${jg},${ib},${tt}`;
+            //return `${pname},${pphone},${pemail}`;
+          }
+          else if (input == "교육과정") {
+            if (grade == 1 ) {
+              switch(dname)  {
+                case `소프트웨어` : return `${dname}학과 ${grade}학년 교육과정은 문제해결기법과 코딩, C프로그래밍과 실습1, R 프로그래밍과 실습, 창의적 소프트웨어설계 입니다.`;
+                  break;
+                case `건축` : return `${dname}학과 ${grade}학년 교육과정은 건축개론, 건축설계기초1/2, 건축CAD 입니다.`;
+                  break;
+                case `전자공` : return `${dname}학과 ${grade}학년 교육과정은 C프로그래밍, 전자공학직업탐색, 파이썬 응요프로그램, 전자공학창의설계 입니다.`;
+                  break;
+                case `토목` : return `${dname}공학과 ${grade}학년 교육과정은 토목직업의 탐색, 창의적 토목설계입문, 공업적역학 입니다.`;
+                  break;
+                case `건축공` : return `${dname}학과 ${grade}학년 교육과정은 건축공학개론, 공학설계입문 입니다.`;
+                  break;
+                default: return `잘못된 정보입니다. 다시 질문해주세요`;
+              }
+            } else if (grade == 2) {
+                switch(dname)  {
+                  case `소프트웨어` : return `${dname}학과 ${grade}학년 교육과정은 C 프로그래밍과 실습2, 오라클중심의 데이터베이스와 실습, 웹프로그래밍과 실습, 자바프로그래밍과 실습, 유닉스 프로그래밍과 실습, AI활용을 위한 머신러닝 기초`;
+                    break;
+                  case `건축` : return `${dname}학과 ${grade}학년 교육과정은 한국건축사, 서양건축사, 건축설계1/2, 구조의이해, 건축재료및구법, BIM및연습, 디지털디자인 입니다.`;
+                    break;
+                  case `전자공` : return `${dname}학과 ${grade}학년 교육과정은 기초전자실험1/2, 회로이론1/2, 디지털논리설계, 잔기자기학, 디지털신호처리 이론 및 설계, 마이크로프로세서설계, 반도체공학 입니다.`;
+                    break;
+                  case `토목` : return `${dname}공학과 ${grade}학년 교육과정은 기초응용역학, 유체역학및실험, 지구과학, 공학전산실무, 구조역학, 관수로종합설계, 측량학및실습 입니다.`;
+                    break;
+                  case `건축공` : return `${dname}학과 ${grade}학년 교육과정은 BIM 및 연습, 건축재료학, 건축구조 기초설계, 건축공정관리실습, 건축구조역학1, 건축시공학, 건축일반구조, 건축 환경 및 설비 입니다.`;
+                    break;
+                  default: return `잘못된 정보입니다. 다시 질문해주세요`;
+                }
+              } else if (grade == 3) {
+                switch(dname)  {
+                  case `소프트웨어` : return `${dname}학과 ${grade}학년 교육과정은 소프트웨어설계 및 개발, 고급데이터베이스 구축과 실무, 자료구조, 모바일프로그래밍과 실습, 고급 모바일프로그래밍과 실습, 빅데이터 분석과 활용, 사물인터넷과 실습, 정보시스템 구축, 운영체제 입니다.`;
+                    break;
+                  case `건축` : return `${dname}학과 ${grade}학년 교육과정은 건축설계3/4, 구조디자인, 건축환경계획, 건축시공학, 건축법규, 건축계획론, 환경친화건축, 현대건축론, 현장실습 입니다.`;
+                    break;
+                  case `전자공` : return `${dname}학과 ${grade}학년 교육과정은 전자회로이론 및 설계1/2, 전자공학실험1/2, 딥러닝전자설계실습, 집적회로설계 및 실습, 운용전자창의설계, 제어공학, IoT시스템 설계 입니다.`;
+                    break;
+                  case `토목` : return `${dname}공학과 ${grade}학년 교육과정은 철근콘크리트공학1/2, 상하수도공학및설계1/2, 토질역학및실험1/2, 개수로종합설계, 지형공간정보학, PS콘크리트공학, 수문학종합설계 입니다.`;
+                    break;
+                  case `건축공` : return `${dname}학과 ${grade}학년 교육과정은 철근콘크리트구조 공학, 건축구조역학2, 건축재료 실험 및 설계, 건설관리, 리모델링공학, 건축법규, 건축적산학, 건축품질관리, 건축실무캡스톤디자인, 건축구조실험 및 설계 입니다.`;
+                    break;
+                  default: return `잘못된 정보입니다. 다시 질문해주세요`;
+                }
+              } else if (grade == 4) {
+                switch(dname)  {
+                  case `소프트웨어` : return `${dname}학과 ${grade}학년 교육과정은 사제동행세미나, 프로그래밍언어응용과 컴파일러, 데이터구현 기반 알고리즘, 응용SW기반 인공지능이론과 실습, 컴퓨터보안과 실습, 증강현실과 가상현실, 데이터통신과 SW보안, 소프트웨어 캡스톤디자인, 무선통신과 인터넷 입니다.`;
+                    break;
+                  case `건축` : return `${dname}학과 ${grade}학년 교육과정은 환경심리및행동론, 목조건축계획및설계1/2, 특수공간디자인, 단지및도시계획, 건축설계5/6, 건축설비, 세계건축사, 도시설계론, 주택과커뮤니티, 건축작품분석, 현장실습 입니다.`;
+                    break;
+                  case `전자공` : return `${dname}학과 ${grade}학년 교육과정은 디지털통신, 모바일프로그래밍, 전자종합설계1/2, 현장실습, 전자현장직무론, 이동통신, 데이터통신, RF회로설계 입니다.`;
+                    break;
+                  case `토목` : return `${dname}공학과 ${grade}학년 교육과정은 강구조및합성 구조설계, 해양항만 종합설계, 기초공학, 토목시공학, 가치공학, 토목종합설계1/2, 현장실습, 고량계획및설계, 하천공학종합설계, 도로포장공학 입니다.`;
+                    break;
+                  case `건축공` : return `${dname}학과 ${grade}학년 교육과정은 강구조 공학, 건축공학종합설계1/2, 건축기술실습, 전산해석 및 실습 입니다.`;
+                    break;
+                  default: return `잘못된 정보입니다. 다시 질문해주세요`;
+                }
+              } else if (grade == 5) {
+                switch(dname)  {
+                  case `건축` : return `${dname}학과 ${grade}학년 교육과정은 건축종합설계1/2, 건축실무, 주거환경조사론, 건축과조경, 현장실습 입니다.`;
+                    break;
+                  default: return `잘못된 정보입니다. 다시 질문해주세요`;
+                }
+              } else {
+                return `잘못된 정보입니다. 다시 질문해주세요`;
+              }
+          }
+          else if (input == "졸업학점") {
+            if (year == 2017) {
+              switch(depa)  {
+                case 0 : return `졸업까지 남은 학점은 교필 ${28-kp}점, 교선 ${8-ks}점, 전공 ${69-jg}점, 일선 ${25-ib}점, 총 ${130-tt}점 입니다.`;
+                  break;
+                case 1 : return `졸업까지 남은 학점은 교필 ${28-kp}점, 교선 ${8-ks}점, 전공 ${106-jg}점, 일선 ${18-ib}점, 총 ${160-tt}점 입니다.`;
+                  break;
+                default: return `잘못된 정보입니다.`;
+              }
+            } else if (year == 2018)  {
+                switch(depa)  {
+                  case 0 : return `졸업까지 남은 학점은 교필 ${16-kp}점, 교선 ${20-ks}점, 전공 ${69-jg}점, 일선 ${25-ib}점, 총 ${130-tt}점 입니다.`;
+                    break;
+                  case 1 : return `졸업까지 남은 학점은 교필 ${16-kp}점, 교선 ${20-ks}점, 전공 ${106-jg}점, 일선 ${18-ib}점, 총 ${160-tt}점 입니다.`;
+                    break;
+                  default: return `잘못된 정보입니다.`;
+                }
+            } else {
+              return `${year}년도 ${dname}학과 졸업 정보가 아직 등록되지 않았습니다.`;
+            }
+          }
+          else {
+            return "잘 이해하지 못했어요. 질문을 확인해주세요";
+          } 
+        }
